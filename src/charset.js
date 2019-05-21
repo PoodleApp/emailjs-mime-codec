@@ -1,4 +1,4 @@
-import { TextDecoder, TextEncoder } from 'text-encoding'
+import encoding from 'encoding'
 
 /**
  * Encodes an unicode string into an Uint8Array object as UTF-8
@@ -6,7 +6,7 @@ import { TextDecoder, TextEncoder } from 'text-encoding'
  * @param {String} str String to be encoded
  * @return {Uint8Array} UTF-8 encoded typed array
  */
-export const encode = str => new TextEncoder('UTF-8').encode(str)
+export const encode = str => encoding.convert(str, 'UTF-8')
 
 export const arr2str = arr => String.fromCharCode.apply(null, arr)
 
@@ -19,13 +19,15 @@ export const arr2str = arr => String.fromCharCode.apply(null, arr)
  */
 export function decode (buf, fromCharset = 'utf-8') {
   const charsets = [
-    { charset: normalizeCharset(fromCharset), fatal: false },
-    { charset: 'utf-8', fatal: true },
-    { charset: 'iso-8859-15', fatal: false }
+    { charset: normalizeCharset(fromCharset) },
+    { charset: 'utf-8' },
+    { charset: 'iso-8859-15' }
   ]
 
-  for (const { charset, fatal } of charsets) {
-    try { return new TextDecoder(charset, { fatal }).decode(buf) } catch (e) { }
+  for (const { charset } of charsets) {
+    try {
+      return Buffer.from(convert(buf, charset)).toString('utf-8')
+    } catch (e) { }
   }
 
   return arr2str(buf) // all else fails, treat it as binary
@@ -38,7 +40,7 @@ export function decode (buf, fromCharset = 'utf-8') {
  * @param {String} Source encoding for the string (optional for data of type String)
  * @return {Uint8Array} UTF-8 encoded typed array
  */
-export const convert = (data, fromCharset) => typeof data === 'string' ? encode(data) : encode(decode(data, fromCharset))
+export const convert = (data, fromCharset) => encoding.convert(data, 'UTF-8', fromCharset)
 
 function normalizeCharset (charset = 'utf-8') {
   let match

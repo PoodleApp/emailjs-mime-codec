@@ -24,8 +24,9 @@
   },
   "dependencies": {
     "emailjs-base64": "^1.1.4",
-    "ramda": "^0.26.1",
-    "text-encoding": "^0.7.0"
+    "encoding": "^0.1.12",
+    "iconv": "^2.3.4",
+    "ramda": "^0.26.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

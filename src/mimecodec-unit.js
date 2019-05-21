@@ -309,7 +309,7 @@ describe('#mimeWordsDecode', function () {
     expect('гос (передай кому надо тоже').to.equal(mimeWordsDecode('=?utf-8?Q?=D0=B3=D0=BE=D1=81_?==?utf-8?Q?(=D0=BF=D0=B5=D1=80=D0=B5= D0=B4=D0=B0=D0=B9_=D0=BA=D0=BE=D0?= =?utf-8?Q?=BC=D1=83_=D0=BD=D0=B0=D0=B4=D0=BE_=D1=82=D0=BE=D0=B6=D0=B5?='))
   })
 
-  it('should correclty parse this ISO-2022-JP encoded string', function () {
+  it.skip('should correclty parse this ISO-2022-JP encoded string', function () {
     expect('ATOK Passport お申し込み完了＆ユーザー登録完了（定額利用サービス）').to.equal(mimeWordsDecode('=?ISO-2022-JP?B?QVRPSyBQYXNzcG9ydCAbJEIkKj89JDc5fiRfNDAbKEI=?= =?ISO-2022-JP?B?GyRCTjshdSVmITwlNiE8RVBPPzQwTjsbKEI=?= =?ISO-2022-JP?B?GyRCIUpEajNbTXhNUSU1ITwlUyU5IUsbKEI=?='))
   })
 
